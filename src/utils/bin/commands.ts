@@ -33,12 +33,11 @@ export const about = async (args: string[]): Promise<string> => {
   return `Hi, I am ${config.name}. 
 Welcome to my website!
 More about me:
-'sumfetch' - short summary.
-'resume' - my latest resume.`;
+'sumfetch' - short summary.`;
 };
 
 // Contact
-export const email = async (args: string[]): Promise<string> => {
+export const email = async (): Promise<string> => {
   window.open(`mailto:${config.email}`);
   return `Opening mailto:${config.email}...`;
 };
