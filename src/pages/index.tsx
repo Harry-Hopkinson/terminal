@@ -1,10 +1,10 @@
-import Head from 'next/head';
-import React from 'react';
-import config from '../../config.json';
-import { Input } from '../components/input';
-import { useHistory } from '../components/history/hook';
-import { History } from '../components/history/History';
-import { banner } from '../utils/bin';
+import Head from "next/head";
+import React from "react";
+import config from "../../config.json";
+import { Input } from "../components/input";
+import { useHistory } from "../components/history/hook";
+import { History } from "../components/history/History";
+import { banner } from "../utils/bin";
 
 interface IndexPageProps {
   inputRef: React.MutableRefObject<HTMLInputElement>;

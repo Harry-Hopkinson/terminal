@@ -64,7 +64,7 @@ docker-compose up -d
 ```
 
 If you **know** what you were doing, you can also try changing `Dockerfile` & `docker-compose.yml`!
-Learn more about Docker [here](https://docs.docker.com/get-started/overview/ 'here').
+Learn more about Docker [here](https://docs.docker.com/get-started/overview/ "here").
 
 ## 📄 Configuration
 

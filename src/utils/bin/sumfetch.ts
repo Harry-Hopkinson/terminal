@@ -1,7 +1,7 @@
-import config from '../../../config.json';
+import config from "../../../config.json";
 
 const sumfetch = async (): Promise<string> => {
-  if (config.ascii === 'cveinnt') {
+  if (config.ascii === "cveinnt") {
     return `                                                  
              @@@@@@@@@@@@@                   sumfetch: summary display
         @@@@               @@@@             -----------

@@ -1,18 +1,18 @@
 // List of commands that do not require API calls
 
-import * as bin from './index';
-import config from '../../../config.json';
+import * as bin from "./index";
+import config from "../../../config.json";
 
 export var isRoot: boolean = false;
 
 // Help
 export const help = async (): Promise<string> => {
-  var c = '';
+  var c = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
     if (i % 7 === 0) {
-      c += Object.keys(bin).sort()[i - 1] + '\n';
+      c += Object.keys(bin).sort()[i - 1] + "\n";
     } else {
-      c += Object.keys(bin).sort()[i - 1] + ' ';
+      c += Object.keys(bin).sort()[i - 1] + " ";
     }
   }
   return `Welcome! Here are all the available commands:
@@ -26,7 +26,7 @@ Type 'sumfetch' to display summary.
 // Redirection
 export const repo = async (): Promise<string> => {
   window.open(`${config.repo}`);
-  return 'Opening Github repository...';
+  return "Opening Github repository...";
 };
 
 // About
@@ -39,12 +39,12 @@ More about me:
 
 export const github = async (): Promise<String> => {
   window.open(`https://github.com/${config.social.github}/`);
-  return 'Opening Github Profile';
+  return "Opening Github Profile";
 };
 
 // Typical linux commands
 export const echo = async (args: string[]): Promise<string> => {
-  return args.join(' ');
+  return args.join(" ");
 };
 
 export const whoami = async (): Promise<string> => {
@@ -66,10 +66,10 @@ export const date = async (): Promise<string> => {
 
 export const sudo = async (): Promise<string> => {
   if (isRoot) {
-    return 'You are already a Root User';
+    return "You are already a Root User";
   }
   isRoot = true;
-  return 'You are now a Root User';
+  return "You are now a Root User";
 };
 // Banner
 export const banner = (): string => {
@@ -86,5 +86,7 @@ export const banner = (): string => {
 Type 'help' to see the list of available commands.
 Type 'sumfetch' to display summary.
 Type 'repo' or click <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.repo}" target="_blank">here</a></u> for the Github repository.
+Type 'github' to see my Github Profile.
+Type 'sudo" to become a Root User.
 `;
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import config from '../../config.json';
-import { isRoot } from '../utils/bin/commands';
+import React from "react";
+import config from "../../config.json";
+import { isRoot } from "../utils/bin/commands";
 
 export const Ps1 = () => {
   return (

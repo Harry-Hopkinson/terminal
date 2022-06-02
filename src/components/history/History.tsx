@@ -1,6 +1,6 @@
-import React from 'react';
-import { History as HistoryInterface } from './interface';
-import { Ps1 } from '../Ps1';
+import React from "react";
+import { History as HistoryInterface } from "./interface";
+import { Ps1 } from "../Ps1";
 
 export const History: React.FC<{ history: Array<HistoryInterface> }> = ({
   history,
@@ -19,7 +19,7 @@ export const History: React.FC<{ history: Array<HistoryInterface> }> = ({
 
           <p
             className="whitespace-pre-wrap mb-2"
-            style={{ lineHeight: 'normal' }}
+            style={{ lineHeight: "normal" }}
             dangerouslySetInnerHTML={{ __html: entry.output }}
           />
         </div>
