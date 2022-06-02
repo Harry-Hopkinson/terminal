@@ -1,6 +1,6 @@
 import config from '../../../config.json';
 
-const sumfetch = async (args: string[]): Promise<string> => {
+const sumfetch = async (): Promise<string> => {
   if (config.ascii === 'cveinnt') {
     return `                                                  
              @@@@@@@@@@@@@                   sumfetch: summary display

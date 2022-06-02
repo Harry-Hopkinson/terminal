@@ -11,10 +11,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "eslint src --ext ts --fix && prettier --write .",
     "prepare": "husky install",
-    "eslint": "eslint src --ext ts && prettier --check ."
+    "eslint": "eslint src --ext ts",
+    "prettier": "prettier --check .",
+    "lint:fix": "eslint src --ext ts --fix && prettier --write .",
+    "compile": "tsc"
   },
   "dependencies": {
     "axios": "^0.27.2",

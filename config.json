@@ -6,8 +6,8 @@
     "github": "github"
   },
   "email": "harryjhopkinson@gmail.com",
-  "ps1_hostname": "root",
-  "ps1_username": "visitor",
+  "ps1_hostname": "sudo",
+  "ps1_username": "user",
   "repo": "https://github.com/Harry-Hopkinson/terminal",
   "colors": {
     "light": {

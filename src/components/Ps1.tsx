@@ -1,5 +1,6 @@
 import React from 'react';
 import config from '../../config.json';
+import { isRoot } from '/workspaces/terminal/src/utils/bin/commands';
 
 export const Ps1 = () => {
   return (
@@ -9,7 +10,7 @@ export const Ps1 = () => {
       </span>
       <span className="text-light-gray dark:text-dark-gray">@</span>
       <span className="text-light-green dark:text-dark-green">
-        {config.ps1_hostname}
+        {isRoot ? config.ps1_hostname : config.ps1_username}
       </span>
       <span className="text-light-gray dark:text-dark-gray">:$ ~ </span>
     </div>

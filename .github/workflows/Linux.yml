@@ -1,0 +1,26 @@
+name: Linux Compiler 🐧
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yarn-version: [16]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Yarn 🧶
+        run: |
+          yarn
+      - name: Typescript Builder 🏗️
+        run: |
+          yarn build
+      - name: Typescript Compiler 🔨
+        run: |
+          yarn compile
