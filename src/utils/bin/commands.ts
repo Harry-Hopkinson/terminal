@@ -23,6 +23,24 @@ Type 'sumfetch' to display summary.
 `;
 };
 
+// Commands
+export const commands = async (): Promise<string> => {
+  var c = "";
+  for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
+    if (i % 7 === 0) {
+      c += Object.keys(bin).sort()[i - 1] + "\n";
+    } else {
+      c += Object.keys(bin).sort()[i - 1] + " ";
+    }
+  }
+  return `Welcome! Here are all the available commands:
+\n${c}\n
+[tab]: trigger completion.
+[ctrl+l]/clear: clear terminal.\n
+Type 'sumfetch' to display summary.
+`;
+};
+
 // Redirection
 export const repo = async (): Promise<string> => {
   window.open(`${config.repo}`);
@@ -48,7 +66,10 @@ export const echo = async (args: string[]): Promise<string> => {
 };
 
 export const whoami = async (): Promise<string> => {
-  return `${config.ps1_username}`;
+  if (isRoot) {
+    return "root";
+  }
+  return "user";
 };
 
 export const ls = async (): Promise<string> => {
