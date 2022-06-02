@@ -14,6 +14,7 @@
     "prepare": "husky install",
     "eslint": "eslint src --ext ts",
     "prettier": "prettier --check .",
+    "lint": "yarn eslint && yarn prettier",
     "lint:fix": "eslint src --ext ts --fix && prettier --write .",
     "compile": "tsc"
   },

@@ -6,8 +6,7 @@ import config from '../../../config.json';
 export var isRoot: boolean = false;
 
 // Help
-export const help = async (args: string[]): Promise<string> => {
-  const commands = Object.keys(bin).sort().join(', ');
+export const help = async (): Promise<string> => {
   var c = '';
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
     if (i % 7 === 0) {
