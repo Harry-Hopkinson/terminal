@@ -69,6 +69,12 @@ export const cat = async (args: string[]): Promise<string> => {
   if (args.length === 0) {
     return "cat: missing file operand";
   }
+  if (
+    args[0].toLowerCase() === "readme" ||
+    args[0].toLowerCase() === "readme.md"
+  ) {
+    return "Welcome to my Website";
+  }
 };
 
 export const whoami = async (): Promise<string> => {
@@ -84,7 +90,8 @@ export const ls = async (): Promise<string> => {
 demo
 install
 public
-src`;
+src
+README`;
 };
 
 export const date = async (): Promise<string> => {
