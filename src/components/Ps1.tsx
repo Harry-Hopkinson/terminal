@@ -1,6 +1,7 @@
 import React from "react";
 import config from "../../config.json";
 import { isRoot } from "../utils/bin/commands";
+import { isSourceDir } from "../utils/bin/commands";
 
 export const Ps1 = () => {
   return (
@@ -12,7 +13,11 @@ export const Ps1 = () => {
       <span className="text-light-green dark:text-dark-green">
         {isRoot ? config.ps1_hostname : config.ps1_username}
       </span>
-      <span className="text-light-gray dark:text-dark-gray">:$ ~ </span>
+      {isSourceDir ? (
+        <span className="text-light-gray dark:text-dark-gray">:src ~ </span>
+      ) : (
+        <span className="text-light-gray dark:text-dark-gray">:$ ~ </span>
+      )}
     </div>
   );
 };

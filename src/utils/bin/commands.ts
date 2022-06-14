@@ -4,6 +4,8 @@ import * as bin from "./index";
 import config from "../../../config.json";
 
 export var isRoot: boolean = false;
+export var isRootDir: boolean = true;
+export var isSourceDir: boolean = false;
 
 // Help
 export const help = async (): Promise<string> => {
@@ -74,6 +76,32 @@ export const cat = async (args: string[]): Promise<string> => {
     args[0].toLowerCase() === "readme.md"
   ) {
     return "Welcome to my Website";
+  } else if (args[0].toLowerCase() === "license") {
+    return "MIT License";
+  } else {
+    return "File not Found";
+  }
+};
+
+export const cd = async (args: string[]): Promise<string> => {
+  if (args.length === 0) {
+    return "cd: missing directory";
+  } else if (args[0] === ".") {
+    if (isRootDir) {
+      return;
+    } else {
+      isRootDir = true;
+    }
+  } else if (args[0] === "..") {
+    if (isRootDir) {
+      return;
+    }
+    if (isSourceDir) {
+      isSourceDir = true;
+    }
+  } else if (args[0] === "src") {
+    isRootDir = false;
+    isSourceDir = true;
   }
 };
 
@@ -91,7 +119,8 @@ demo
 install
 public
 src
-README`;
+README
+LICENSE`;
 };
 
 export const date = async (): Promise<string> => {
