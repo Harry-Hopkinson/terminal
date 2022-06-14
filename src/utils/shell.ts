@@ -12,6 +12,8 @@ export const shell = async (
 
   if (args[0] === "clear") {
     clearHistory();
+  } else if (args[0] === "cls") {
+    clearHistory();
   } else if (command === "") {
     setHistory("");
   } else if (Object.keys(bin).indexOf(args[0]) === -1) {

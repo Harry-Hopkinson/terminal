@@ -65,6 +65,12 @@ export const echo = async (args: string[]): Promise<string> => {
   return args.join(" ");
 };
 
+export const cat = async (args: string[]): Promise<string> => {
+  if (args.length === 0) {
+    return "cat: missing file operand";
+  }
+};
+
 export const whoami = async (): Promise<string> => {
   if (isRoot) {
     return "root";
