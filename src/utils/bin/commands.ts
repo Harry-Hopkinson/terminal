@@ -1,7 +1,7 @@
 import * as bin from "./index";
 import config from "../../../config.json";
 
-export var isRoot: boolean = false;
+export var isRootUser: boolean = false;
 export var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
 
@@ -22,7 +22,6 @@ Type 'sumfetch' to display summary.
 `;
 };
 
-// Commands
 export const commands = async (): Promise<string> => {
   var c = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
@@ -69,11 +68,12 @@ export const cat = async (args: string[]): Promise<string> => {
     return "cat: missing file operand";
   }
   if (
-    args[0].toLowerCase() === "readme" ||
-    args[0].toLowerCase() === "readme.md"
+    (args[0].toLowerCase() === "readme" ||
+      args[0].toLowerCase() === "readme.md") &&
+    isRootDir
   ) {
     return "Welcome to my Website";
-  } else if (args[0].toLowerCase() === "license") {
+  } else if (args[0].toLowerCase() === "license" && isRootDir) {
     return "MIT License";
   } else {
     return "File not Found";
@@ -81,20 +81,20 @@ export const cat = async (args: string[]): Promise<string> => {
 };
 
 export const cd = async (args: string[]): Promise<string> => {
+  if (isRootDir) {
+    isSourceDir = false;
+  }
+  if (isSourceDir) {
+    isRootDir = false;
+  }
   if (args.length === 0) {
     return "cd: missing directory";
-  } else if (args[0] === ".") {
-    if (isRootDir) {
-      return;
-    } else {
-      isRootDir = true;
-    }
   } else if (args[0] === "..") {
     if (isRootDir) {
-      return;
+      isSourceDir = false;
     }
     if (isSourceDir) {
-      isSourceDir = true;
+      isRootDir = true;
     }
   } else if (args[0] === "src") {
     isRootDir = false;
@@ -105,7 +105,7 @@ export const cd = async (args: string[]): Promise<string> => {
 };
 
 export const whoami = async (): Promise<string> => {
-  if (isRoot) {
+  if (isRootUser) {
     return "root";
   }
   return "user";
@@ -127,10 +127,10 @@ export const date = async (): Promise<string> => {
 };
 
 export const sudo = async (): Promise<string> => {
-  if (isRoot) {
+  if (isRootUser) {
     return "You are already a Root User";
   }
-  isRoot = true;
+  isRootUser = true;
   return "You are now a Root User";
 };
 // Banner
