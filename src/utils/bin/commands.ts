@@ -99,6 +99,8 @@ export const cd = async (args: string[]): Promise<string> => {
       isSourceDir = false;
       isRootDir = true;
     }
+  } else if (args[0] === ".") {
+    return;
   } else if (args[0] === "src") {
     isRootDir = false;
     isSourceDir = true;
@@ -157,5 +159,6 @@ Type 'sumfetch' to display summary.
 Type 'repo' or click <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.repo}" target="_blank">here</a></u> for the Github repository.
 Type 'github' to see my Github Profile.
 Type 'sudo' to become a Root User.
+Type 'weather [city]' to see the weather forecast for a city.
 `;
 };

@@ -13,7 +13,7 @@ export const getWeather = async (city: string) => {
     const { data } = await axios.get(`https://wttr.in/${city}?ATm`);
     return data;
   } catch (error) {
-    return error;
+    return "City not found";
   }
 };
 

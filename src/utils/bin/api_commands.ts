@@ -1,5 +1,3 @@
-// // List of commands that require API calls
-
 import { getProjects } from "../api";
 import { getQuote } from "../api";
 import { getWeather } from "../api";
@@ -8,8 +6,8 @@ export const projects = async (): Promise<string> => {
   const projects = await getProjects();
   return projects
     .map(
-      (repo: { name: any; html_url: any }) =>
-        `${repo.name} - <a class="text-light-blue dark:text-dark-blue underline" href="${repo.html_url}" target="_blank">${repo.html_url}</a>`,
+      (repo: { name: any; htmlUrl: any }) =>
+        `${repo.name} - <a class="text-light-blue dark:text-dark-blue underline" href="${repo.htmlUrl}" target="_blank">${repo.htmlUrl}</a>`,
     )
     .join("\n");
 };
