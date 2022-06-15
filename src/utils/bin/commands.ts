@@ -39,13 +39,11 @@ Type 'sumfetch' to display summary.
 `;
 };
 
-// Redirection
 export const repo = async (): Promise<string> => {
   window.open(`${config.repo}`);
   return "Opening Github repository...";
 };
 
-// About
 export const about = async (): Promise<string> => {
   return `Hi, I am ${config.name}. 
 Welcome to my website!
@@ -58,7 +56,6 @@ export const github = async (): Promise<String> => {
   return "Opening Github Profile";
 };
 
-// Typical linux commands
 export const echo = async (args: string[]): Promise<string> => {
   return args.join(" ");
 };
@@ -67,14 +64,22 @@ export const cat = async (args: string[]): Promise<string> => {
   if (args.length === 0) {
     return "cat: missing file operand";
   }
-  if (
-    (args[0].toLowerCase() === "readme" ||
-      args[0].toLowerCase() === "readme.md") &&
-    isRootDir
-  ) {
-    return "Welcome to my Website";
-  } else if (args[0].toLowerCase() === "license" && isRootDir) {
-    return "MIT License";
+  if (isRootDir) {
+    if (
+      args[0].toLowerCase() === "readme" ||
+      args[0].toLowerCase() === "readme.md"
+    ) {
+      return "Welcome to my Website";
+    } else if (args[0].toLowerCase() === "license") {
+      return "MIT License";
+    }
+  } else if (isSourceDir) {
+    if (
+      args[0].toLowerCase() === "index" ||
+      args[0].toLowerCase() === "index.js"
+    ) {
+      return "console.log('Hello World!');";
+    }
   } else {
     return "File not Found";
   }
@@ -90,10 +95,8 @@ export const cd = async (args: string[]): Promise<string> => {
   if (args.length === 0) {
     return "cd: missing directory";
   } else if (args[0] === "..") {
-    if (isRootDir) {
-      isSourceDir = false;
-    }
     if (isSourceDir) {
+      isSourceDir = false;
       isRootDir = true;
     }
   } else if (args[0] === "src") {
@@ -112,7 +115,8 @@ export const whoami = async (): Promise<string> => {
 };
 
 export const ls = async (): Promise<string> => {
-  return `.github
+  if (isRootDir) {
+    return `.github
 .husky
 demo
 install
@@ -120,6 +124,9 @@ public
 src
 README
 LICENSE`;
+  } else if (isSourceDir) {
+    return `index.js`;
+  }
 };
 
 export const date = async (): Promise<string> => {
@@ -133,7 +140,7 @@ export const sudo = async (): Promise<string> => {
   isRootUser = true;
   return "You are now a Root User";
 };
-// Banner
+
 export const banner = (): string => {
   return `
   
@@ -149,6 +156,6 @@ Type 'help' to see the list of available commands.
 Type 'sumfetch' to display summary.
 Type 'repo' or click <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.repo}" target="_blank">here</a></u> for the Github repository.
 Type 'github' to see my Github Profile.
-Type 'sudo" to become a Root User.
+Type 'sudo' to become a Root User.
 `;
 };
