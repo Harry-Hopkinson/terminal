@@ -1,5 +1,3 @@
-// List of commands that do not require API calls
-
 import * as bin from "./index";
 import config from "../../../config.json";
 
@@ -7,7 +5,6 @@ export var isRoot: boolean = false;
 export var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
 
-// Help
 export const help = async (): Promise<string> => {
   var c = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
@@ -102,6 +99,8 @@ export const cd = async (args: string[]): Promise<string> => {
   } else if (args[0] === "src") {
     isRootDir = false;
     isSourceDir = true;
+  } else {
+    return "cd: " + args[0] + ": No such file or directory";
   }
 };
 
