@@ -39,9 +39,8 @@ Type 'sumfetch' to display summary.
 `;
 };
 
-export const repo = async (): Promise<string> => {
-  window.open(`${config.repo}`);
-  return "Opening Github repository...";
+export const repo = async (): Promise<Window> => {
+  return window.open(`${config.repo}`);
 };
 
 export const about = async (): Promise<string> => {
@@ -141,6 +140,15 @@ export const sudo = async (): Promise<string> => {
   }
   isRootUser = true;
   return "You are now a Root User";
+};
+
+export const su = async (): Promise<String> => {
+  if (isRootUser) {
+    isRootUser = false;
+    return "You are now a Standard User";
+  } else {
+    return "You are already a Standard User";
+  }
 };
 
 export const banner = (): string => {
