@@ -6,7 +6,7 @@ export var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
 export var hasCreatedNewFile: boolean = false;
 
-export var files: string[] = ["readme, license"];
+export var rootFiles: string[] = [];
 
 export const help = async (): Promise<string> => {
   var c = "";
@@ -116,8 +116,10 @@ export const cp = async (args: string[]): Promise<string> => {
     return "cp: missing file operand";
   } else if (args.length === 1) {
     return "cp: missing destination file operand after '" + args[0] + "'";
+  } else if (args[1] !== (rootFiles[0] || rootFiles[1])) {
+    return "File not found";
   } else {
-    files.push(args[1]);
+    rootFiles.push(args[1]);
     hasCreatedNewFile = true;
     return "Copied " + args[0] + " to " + args[1];
   }
@@ -131,24 +133,14 @@ export const whoami = async (): Promise<string> => {
 };
 
 export const ls = async (): Promise<string> => {
-  if (hasCreatedNewFile) {
+  if (hasCreatedNewFile && isRootDir) {
     return `.github
 .husky
 demo
 install
 public
 src
-${files.join("\n")}`;
-  }
-  if (isRootDir) {
-    return `.github
-.husky
-demo
-install
-public
-src
-README
-LICENSE`;
+${rootFiles[0]}}`;
   } else if (isSourceDir) {
     return `index.js`;
   }
