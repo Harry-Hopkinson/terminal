@@ -4,6 +4,9 @@ import config from "../../../config.json";
 export var isRootUser: boolean = false;
 export var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
+export var hasCreatedNewFile: boolean = false;
+
+export var rootFiles: string[] = [];
 
 export const help = async (): Promise<string> => {
   var c = "";
@@ -108,6 +111,20 @@ export const cd = async (args: string[]): Promise<string> => {
   }
 };
 
+export const cp = async (args: string[]): Promise<string> => {
+  if (args.length === 0) {
+    return "cp: missing file operand";
+  } else if (args.length === 1) {
+    return "cp: missing destination file operand after '" + args[0] + "'";
+  } else if (args[1] !== (rootFiles[0] || rootFiles[1])) {
+    return "File not found";
+  } else {
+    rootFiles.push(args[1]);
+    hasCreatedNewFile = true;
+    return "Copied " + args[0] + " to " + args[1];
+  }
+};
+
 export const whoami = async (): Promise<string> => {
   if (isRootUser) {
     return "root";
@@ -116,15 +133,14 @@ export const whoami = async (): Promise<string> => {
 };
 
 export const ls = async (): Promise<string> => {
-  if (isRootDir) {
+  if (hasCreatedNewFile && isRootDir) {
     return `.github
 .husky
 demo
 install
 public
 src
-README
-LICENSE`;
+${rootFiles[0]}}`;
   } else if (isSourceDir) {
     return `index.js`;
   }
