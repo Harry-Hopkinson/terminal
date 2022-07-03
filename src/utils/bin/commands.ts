@@ -7,6 +7,7 @@ export var isSourceDir: boolean = false;
 export var hasCreatedNewFile: boolean = false;
 
 export var rootFiles: string[] = [];
+rootFiles.push("license, readme");
 
 export const help = async (): Promise<string> => {
   var c = "";
@@ -67,23 +68,16 @@ export const cat = async (args: string[]): Promise<string> => {
     return "cat: missing file operand";
   }
   if (isRootDir) {
-    if (
-      args[0].toLowerCase() === "readme" ||
-      args[0].toLowerCase() === "readme.md"
-    ) {
+    if (args[0].toLowerCase().includes("readme")) {
       return "Welcome to my Website";
-    } else if (args[0].toLowerCase() === "license") {
+    } else if (args[0].toLowerCase().includes("license")) {
       return "MIT License";
     }
+    return "cat " + args[0] + ": No such file or directory";
   } else if (isSourceDir) {
-    if (
-      args[0].toLowerCase() === "index" ||
-      args[0].toLowerCase() === "index.js"
-    ) {
+    if (args[0].toLowerCase().includes("index")) {
       return "console.log('Hello World!');";
     }
-  } else {
-    return "File not Found";
   }
 };
 
@@ -101,8 +95,6 @@ export const cd = async (args: string[]): Promise<string> => {
       isSourceDir = false;
       isRootDir = true;
     }
-  } else if (args[0] === ".") {
-    return;
   } else if (args[0] === "src") {
     isRootDir = false;
     isSourceDir = true;
@@ -133,17 +125,16 @@ export const whoami = async (): Promise<string> => {
 };
 
 export const ls = async (): Promise<string> => {
-  if (hasCreatedNewFile && isRootDir) {
+  if (isRootDir) {
     return `.github
 .husky
 demo
 install
 public
 src
-${rootFiles[0]}}`;
-  } else if (isSourceDir) {
-    return `index.js`;
+${rootFiles.join("\n")}`;
   }
+  return `index.js`;
 };
 
 export const date = async (): Promise<string> => {

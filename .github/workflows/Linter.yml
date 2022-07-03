@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16]
-
+        yarn-version: [15, 16, 17]
     steps:
       - uses: actions/checkout@v3
       - name: Yarn 🧶
