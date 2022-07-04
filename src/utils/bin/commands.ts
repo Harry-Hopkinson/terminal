@@ -7,7 +7,8 @@ export var isSourceDir: boolean = false;
 export var hasCreatedNewFile: boolean = false;
 
 export var rootFiles: string[] = [];
-rootFiles.push("license, readme");
+rootFiles.push(`license 
+readme`);
 
 export const help = async (): Promise<string> => {
   var c = "";
@@ -54,9 +55,8 @@ More about me:
 'sumfetch' - short summary.`;
 };
 
-export const github = async (): Promise<String> => {
-  window.open(`https://github.com/${config.social.github}/`);
-  return "Opening Github Profile";
+export const github = async (): Promise<Window> => {
+  return window.open(`https://github.com/${config.social.github}/`);
 };
 
 export const echo = async (args: string[]): Promise<string> => {
@@ -74,20 +74,13 @@ export const cat = async (args: string[]): Promise<string> => {
       return "MIT License";
     }
     return "cat " + args[0] + ": No such file or directory";
-  } else if (isSourceDir) {
-    if (args[0].toLowerCase().includes("index")) {
-      return "console.log('Hello World!');";
-    }
+  }
+  if (args[0].toLowerCase().includes("index")) {
+    return "console.log('Hello World!');";
   }
 };
 
 export const cd = async (args: string[]): Promise<string> => {
-  if (isRootDir) {
-    isSourceDir = false;
-  }
-  if (isSourceDir) {
-    isRootDir = false;
-  }
   if (args.length === 0) {
     return "cd: missing directory";
   } else if (args[0] === "..") {
@@ -108,13 +101,10 @@ export const cp = async (args: string[]): Promise<string> => {
     return "cp: missing file operand";
   } else if (args.length === 1) {
     return "cp: missing destination file operand after '" + args[0] + "'";
-  } else if (args[1] !== (rootFiles[0] || rootFiles[1])) {
-    return "File not found";
-  } else {
-    rootFiles.push(args[1]);
-    hasCreatedNewFile = true;
-    return "Copied " + args[0] + " to " + args[1];
   }
+  rootFiles.push(args[1]);
+  hasCreatedNewFile = true;
+  return "Copied " + args[0] + " to " + args[1];
 };
 
 export const whoami = async (): Promise<string> => {
