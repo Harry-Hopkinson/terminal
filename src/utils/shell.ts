@@ -3,10 +3,11 @@ import * as bin from "./bin";
 
 export const shell = async (
   command: string,
+  // eslint-disable-next-line no-unused-vars
   setHistory: (value: string) => void,
   clearHistory: () => void,
   setCommand: React.Dispatch<React.SetStateAction<string>>,
-) => {
+): Promise<void> => {
   const args = command.split(" ");
   args[0] = args[0].toLowerCase();
 
