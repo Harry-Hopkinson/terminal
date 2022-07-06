@@ -20,55 +20,68 @@ export const Input = ({
       .map(({ command }) => command)
       .filter((command: string) => command);
 
-    if (event.key === "c" && event.ctrlKey) {
-      event.preventDefault();
-      setCommand("");
-      setHistory("");
-      setLastCommandIndex(0);
-    }
+    switch (event.key) {
+      case "c":
+        if (event.ctrlKey) {
+          event.preventDefault();
+          setCommand("");
+          setHistory("");
+          setLastCommandIndex(0);
+        }
+        break;
 
-    if (event.key === "l" && event.ctrlKey) {
-      event.preventDefault();
-      clearHistory();
-    }
+      case "l":
+        if (event.ctrlKey) {
+          event.preventDefault();
+          clearHistory();
+        }
+        break;
 
-    if (event.key === "Tab") {
-      event.preventDefault();
-      handleTabCompletion(command, setCommand);
-    }
+      case "Tab":
+        event.preventDefault();
+        handleTabCompletion(command, setCommand);
+        break;
 
-    if (event.key === "Enter" || event.code === "13") {
-      event.preventDefault();
-      setLastCommandIndex(0);
-      await shell(command, setHistory, clearHistory, setCommand);
-      containerRef.current.scrollTo(0, containerRef.current.scrollHeight);
-    }
-
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      if (!commands.length) {
-        return;
-      }
-      const index: number = lastCommandIndex + 1;
-      if (index <= commands.length) {
-        setLastCommandIndex(index);
-        setCommand(commands[commands.length - index]);
-      }
-    }
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      if (!commands.length) {
-        return;
-      }
-      const index: number = lastCommandIndex - 1;
-      if (index > 0) {
-        setLastCommandIndex(index);
-        setCommand(commands[commands.length - index]);
-      } else {
+      case "Enter":
+        event.preventDefault();
         setLastCommandIndex(0);
-        setCommand("");
-      }
+        await shell(command, setHistory, clearHistory, setCommand);
+        containerRef.current.scrollTo(0, containerRef.current.scrollHeight);
+        break;
+
+      case "13":
+        event.preventDefault();
+        setLastCommandIndex(0);
+        await shell(command, setHistory, clearHistory, setCommand);
+        containerRef.current.scrollTo(0, containerRef.current.scrollHeight);
+        break;
+
+      case "ArrowUp":
+        event.preventDefault();
+        if (!commands.length) {
+          return;
+        }
+        const posIndex: number = lastCommandIndex + 1;
+        if (posIndex <= commands.length) {
+          setLastCommandIndex(posIndex);
+          setCommand(commands[commands.length - posIndex]);
+        }
+        break;
+
+      case "ArrowDown":
+        event.preventDefault();
+        if (!commands.length) {
+          return;
+        }
+        const negIndex: number = lastCommandIndex - 1;
+        if (negIndex > 0) {
+          setLastCommandIndex(negIndex);
+          setCommand(commands[commands.length - negIndex]);
+        } else {
+          setLastCommandIndex(0);
+          setCommand("");
+        }
+        break;
     }
   };
 
