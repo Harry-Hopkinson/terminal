@@ -11,3 +11,6 @@
 # debug
 yarn-debug.log*
 yarn-error.log*
+
+# out files
+dist

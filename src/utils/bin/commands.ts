@@ -2,9 +2,8 @@ import * as bin from "./index";
 import config from "../../../config.json";
 
 export var isRootUser: boolean = false;
-export var isRootDir: boolean = true;
+var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
-export var hasCreatedNewFile: boolean = false;
 
 export var rootFiles: string[] = [];
 rootFiles.push(`license 
@@ -13,7 +12,7 @@ readme`);
 export const help = async (): Promise<string> => {
   var c = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
-    if (i % 7 === 0) {
+    if (i % 5 === 0) {
       c += Object.keys(bin).sort()[i - 1] + "\n";
     } else {
       c += Object.keys(bin).sort()[i - 1] + " ";
@@ -30,7 +29,7 @@ Type 'sumfetch' to display summary.
 export const commands = async (): Promise<string> => {
   var c = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
-    if (i % 7 === 0) {
+    if (i % 5 === 0) {
       c += Object.keys(bin).sort()[i - 1] + "\n";
     } else {
       c += Object.keys(bin).sort()[i - 1] + " ";
@@ -44,8 +43,9 @@ Type 'sumfetch' to display summary.
 `;
 };
 
-export const repo = async (): Promise<Window> => {
-  return window.open(`${config.repo}`);
+export const repo = async (): Promise<null> => {
+  window.open(`${config.repo}`);
+  return;
 };
 
 export const about = async (): Promise<string> => {
@@ -103,15 +103,11 @@ export const cp = async (args: string[]): Promise<string> => {
     return "cp: missing destination file operand after '" + args[0] + "'";
   }
   rootFiles.push(args[1]);
-  hasCreatedNewFile = true;
   return "Copied " + args[0] + " to " + args[1];
 };
 
 export const whoami = async (): Promise<string> => {
-  if (isRootUser) {
-    return "root";
-  }
-  return "user";
+  return isRootUser ? "root" : "user";
 };
 
 export const ls = async (): Promise<string> => {
@@ -143,9 +139,8 @@ export const su = async (): Promise<String> => {
   if (isRootUser) {
     isRootUser = false;
     return "You are now a Standard User";
-  } else {
-    return "You are already a Standard User";
   }
+  return "You are already a Standard User";
 };
 
 export const banner = (): string => {
