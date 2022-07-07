@@ -11,9 +11,7 @@ export const shell = async (
   const args = command.split(" ");
   args[0] = args[0].toLowerCase();
 
-  if (args[0] === "clear") {
-    clearHistory();
-  } else if (args[0] === "cls") {
+  if (args[0] === "clear" || args[0] === "cls") {
     clearHistory();
   } else if (command === "") {
     setHistory("");
