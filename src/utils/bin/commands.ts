@@ -77,6 +77,8 @@ export const cat = async (args: string[]): Promise<string> => {
   }
   if (args[0].toLowerCase().includes("index")) {
     return "console.log('Hello World!');";
+  } else {
+    return "cat " + args[0] + ": No such file or directory";
   }
 };
 
