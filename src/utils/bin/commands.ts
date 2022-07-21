@@ -1,5 +1,6 @@
 import * as bin from "./index";
 import config from "../../../config.json";
+import { variableList } from "./variables";
 
 export var root: string = "root";
 var isRootDir: boolean = true;
@@ -10,16 +11,19 @@ rootFiles.push(`license
 readme`);
 
 export const commands = async (): Promise<string> => {
-  var c = "";
+  var commands = "";
   for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
     if (i % 5 === 0) {
-      c += Object.keys(bin).sort()[i - 1] + "\n";
+      commands += Object.keys(bin).sort()[i - 1] + "\n";
     } else {
-      c += Object.keys(bin).sort()[i - 1] + " ";
+      commands += Object.keys(bin).sort()[i - 1] + " ";
+    }
+    if (variableList.includes(Object.keys(bin).sort()[i - 1])) {
+      commands = commands.replace(Object.keys(bin).sort()[i - 1] + " ", "");
     }
   }
   return `Welcome! Here are all the available commands:
-\n${c}\n
+\n${commands}\n
 [tab]: trigger completion.
 [ctrl+l]/clear: clear terminal.\n
 Type 'sumfetch' to display summary.
