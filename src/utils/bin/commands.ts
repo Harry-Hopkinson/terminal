@@ -1,32 +1,13 @@
 import * as bin from "./index";
 import config from "../../../config.json";
 
-export var isRootUser: boolean = false;
+export var root: string = "root";
 var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
-
-export var root: string = "root";
 
 export var rootFiles: string[] = [];
 rootFiles.push(`license 
 readme`);
-
-export const help = async (): Promise<string> => {
-  var c = "";
-  for (let i = 1; i <= Object.keys(bin).sort().length; i++) {
-    if (i % 5 === 0) {
-      c += Object.keys(bin).sort()[i - 1] + "\n";
-    } else {
-      c += Object.keys(bin).sort()[i - 1] + " ";
-    }
-  }
-  return `Welcome! Here are all the available commands:
-\n${c}\n
-[tab]: trigger completion.
-[ctrl+l]/clear: clear terminal.\n
-Type 'sumfetch' to display summary.
-`;
-};
 
 export const commands = async (): Promise<string> => {
   var c = "";
@@ -111,7 +92,7 @@ export const cp = async (args: string[]): Promise<string> => {
 };
 
 export const whoami = async (): Promise<string> => {
-  return isRootUser ? "root" : "user";
+  return root;
 };
 
 export const ls = async (): Promise<string> => {
@@ -132,16 +113,16 @@ export const date = async (): Promise<string> => {
 };
 
 export const sudo = async (): Promise<string> => {
-  if (isRootUser) {
+  if (root === "root") {
     return "You are already a Root User";
   }
-  isRootUser = true;
+  root = "root";
   return "You are now a Root User";
 };
 
 export const su = async (): Promise<String> => {
-  if (isRootUser) {
-    isRootUser = false;
+  if (root === "root") {
+    root = "standard";
     return "You are now a Standard User";
   }
   return "You are already a Standard User";
@@ -158,7 +139,7 @@ export const banner = (): string => {
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
 
 
-Type 'help' to see the list of available commands.
+Type 'commands' to see the list of available commands.
 Type 'sumfetch' to display summary.
 Type 'repo' or click <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.repo}" target="_blank">here</a></u> for the Github repository.
 Type 'github' to see my Github Profile.

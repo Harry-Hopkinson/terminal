@@ -1,6 +1,6 @@
 import React from "react";
 import config from "../../config.json";
-import { isRootUser } from "../utils/bin/commands";
+import { root } from "../utils/bin/commands";
 import { isSourceDir } from "../utils/bin/commands";
 
 export const Ps1 = () => {
@@ -11,7 +11,7 @@ export const Ps1 = () => {
       </span>
       <span className="text-light-gray dark:text-dark-gray">@</span>
       <span className="text-light-green dark:text-dark-green">
-        {isRootUser ? config.ps1_hostname : config.ps1_username}
+        {root === "root" ? config.ps1_hostname : config.ps1_username}
       </span>
       {isSourceDir ? (
         <span className="text-light-gray dark:text-dark-gray">:src ~ </span>
