@@ -5,6 +5,8 @@ export var isRootUser: boolean = false;
 var isRootDir: boolean = true;
 export var isSourceDir: boolean = false;
 
+export var root: string = "root";
+
 export var rootFiles: string[] = [];
 rootFiles.push(`license 
 readme`);
