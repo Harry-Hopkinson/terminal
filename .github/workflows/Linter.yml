@@ -14,7 +14,7 @@ jobs:
       matrix:
         yarn-version: [15, 16, 17]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Yarn 🧶
         run: |
           yarn
