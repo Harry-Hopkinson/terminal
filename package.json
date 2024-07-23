@@ -35,6 +35,6 @@
     "eslint-plugin-unused-imports": "4.0.1",
     "husky": "9.1.1",
     "prettier": "2.8.8",
-    "typescript": "5.5.3"
+    "typescript": "5.5.4"
   }
 }
